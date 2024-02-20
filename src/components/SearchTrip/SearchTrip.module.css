@@ -1,0 +1,25 @@
+.wrapper {
+  position: relative;
+  max-width: 230px;
+  margin-bottom: 40px;
+}
+
+.input {
+  max-width: 230px;
+  height: 40px;
+  background-color: #f2f4f8;
+  border-radius: 6px;
+  outline: none;
+  padding: 10px 20px 10px 37px;
+}
+
+.input::placeholder {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.input-icon {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
