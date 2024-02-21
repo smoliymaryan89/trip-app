@@ -17,13 +17,13 @@ const Aside = ({ currentWeather, currentTrip }: AsideProps) => {
         <p className={style.day}>
           {getWeekDay(currentWeather.days[0].datetime)}
         </p>
-        <p className={style.weather}>
+        <div className={style.weather}>
           {getWeatherIcon(currentWeather.days[0].icon)}
           <div style={{ display: "flex" }}>
             {currentWeather.days[0].temp}
             <span className={style.sup}>°C</span>
           </div>
-        </p>
+        </div>
         <p className={style.address}>{currentWeather.address}</p>
 
         <Timer start={currentTrip.start} end={currentTrip.end} />
