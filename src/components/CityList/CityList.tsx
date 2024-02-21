@@ -19,36 +19,38 @@ const CityList = ({ handleModal, trip, handleCurrentTrip }: CityListProps) => {
 
   return (
     <div className={style.wrapper}>
-      <ul className={style["city-list"]}>
-        {trip.map(({ id, img, city, start, end }, index) => (
-          <li
-            key={id}
-            className={style["city-item"]}
-            onClick={() => {
-              handleClick(index);
-              handleCurrentTrip({ city, start, end });
-            }}
-          >
-            <img
-              src={img}
-              alt={city}
-              width={175}
-              height={175}
-              className={style["city-img"]}
-            />
-            <div
-              className={`${style["city-content"]} ${
-                index === isActive ? style["is-active"] : ""
-              }`}
+      <div className={style.scroll}>
+        <ul className={style["city-list"]}>
+          {trip.map(({ id, img, city, start, end }, index) => (
+            <li
+              key={id}
+              className={style["city-item"]}
+              onClick={() => {
+                handleClick(index);
+                handleCurrentTrip({ city, start, end });
+              }}
             >
-              <h2 className={style["city-title"]}>{city}</h2>
-              <p className={style.date}>
-                {formatDate(start)} - {formatDate(end)}
-              </p>
-            </div>
-          </li>
-        ))}
-      </ul>
+              <img
+                src={img}
+                alt={city}
+                width={175}
+                height={175}
+                className={style["city-img"]}
+              />
+              <div
+                className={`${style["city-content"]} ${
+                  index === isActive ? style["is-active"] : ""
+                }`}
+              >
+                <h2 className={style["city-title"]}>{city}</h2>
+                <p className={style.date}>
+                  {formatDate(start)} - {formatDate(end)}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
 
       <button type="button" className={style.btn} onClick={handleModal}>
         <div className={style["btn-content"]}>
