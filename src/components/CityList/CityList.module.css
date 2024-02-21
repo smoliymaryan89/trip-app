@@ -1,0 +1,62 @@
+.wrapper {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.city-list {
+  display: flex;
+  gap: 25px;
+  width: 600px;
+  overflow-x: auto;
+}
+
+.city-item {
+  min-width: 175px;
+}
+
+.city-img {
+  width: 175px;
+  height: 175px;
+  object-fit: cover;
+}
+
+.city-content {
+  padding: 20px;
+  border: 1px solid #f2f4f8;
+}
+
+.city-title {
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.date {
+  font-size: 10px;
+  color: #9e9e9e;
+}
+
+.is-active {
+  border-color: #9fcfff;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f2f4f8;
+  min-width: 175px;
+  height: 175px;
+  transition: background-color 300ms ease-in-out;
+}
+
+.btn:hover {
+  background-color: #e3e8f0;
+}
+
+.btn-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
