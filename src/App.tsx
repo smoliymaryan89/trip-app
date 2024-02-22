@@ -13,6 +13,7 @@ import useLocalStorage from "./hooks/useLocalStorage";
 import selectData from "./utils/data/selectData";
 import WeatherList from "./components/WeatherList/WeatherList";
 import Aside from "./components/Aside/Aside";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -108,6 +109,8 @@ const App = () => {
       {isOpen && (
         <Modal handleModal={handleModal} addNewTrip={handleAddNewTrip} />
       )}
+
+      <Toaster position="bottom-center" toastOptions={{ duration: 3000 }} />
     </>
   );
 };
