@@ -26,7 +26,11 @@ const Timer = ({ start, end }: TimerProps) => {
     }
   }, [end, start]);
 
-  return (
+  const isTripCompleted = new Date().getTime() >= new Date(end).getTime();
+
+  return isTripCompleted ? (
+    <p className={style.value}>The trip is over</p>
+  ) : (
     <div className={style.timer}>
       <div className={style.field}>
         <span className={style.value}>
