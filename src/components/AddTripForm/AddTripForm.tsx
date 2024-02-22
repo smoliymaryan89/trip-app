@@ -3,6 +3,7 @@ import { NewTrip } from "../../types/trip";
 import selectData from "../../utils/data/selectData";
 import style from "./AddTripForm.module.css";
 import getTodayAndMaxDate from "../../utils/helpers/getTodayAndMaxDate";
+import toast from "react-hot-toast";
 
 interface AddTripFormProps {
   handleModal: () => void;
@@ -37,7 +38,18 @@ const AddTripForm = ({ handleModal, addNewTrip }: AddTripFormProps) => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!city.trim() || !start.trim() || !end.trim()) return;
+    if (!city.trim() || !start.trim() || !end.trim()) {
+      toast.error("All fields are required!");
+      return;
+    }
+
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+
+    if (endDate < startDate) {
+      toast.error("End date cannot be less than start date!");
+      return;
+    }
 
     addNewTrip({ city, start, end });
 
