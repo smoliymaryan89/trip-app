@@ -3,6 +3,7 @@ import { NewTrip } from "./types/trip";
 import { getForecast, getTodayWeather } from "./service/weatherApi";
 import { CurrentWeatherResponse, ForecastResponse } from "./types/weather";
 import { nanoid } from "nanoid";
+import { Toaster } from "react-hot-toast";
 
 import CityList from "./components/CityList/CityList";
 import Container from "./components/Container/Container";
@@ -13,7 +14,7 @@ import useLocalStorage from "./hooks/useLocalStorage";
 import selectData from "./utils/data/selectData";
 import WeatherList from "./components/WeatherList/WeatherList";
 import Aside from "./components/Aside/Aside";
-import { Toaster } from "react-hot-toast";
+import "./App.css";
 
 const App = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -31,6 +32,7 @@ const App = () => {
   const [forecast, setForecast] = useState<ForecastResponse | null>(null);
   const [currentWeather, setCurrentWeather] =
     useState<CurrentWeatherResponse | null>(null);
+  const [filteredTrip, setFilteredTrip] = useState<NewTrip[] | null>(null);
 
   useEffect(() => {
     if (!currentTrip) {
@@ -63,6 +65,13 @@ const App = () => {
     })();
   }, [currentTrip?.city]);
 
+  useEffect(() => {
+    const filteredTripArr = trip.filter(({ city }) =>
+      city.toLowerCase().trim().includes(filter.toLowerCase().trim())
+    );
+    setFilteredTrip(filteredTripArr);
+  }, [filter, trip]);
+
   const handleModal = () => {
     setIsOpen((prev) => !prev);
   };
@@ -83,21 +92,33 @@ const App = () => {
     setCurrentTrip(data);
   };
 
-  const filteredTrip = trip.filter(({ city }) =>
-    city.toLowerCase().trim().includes(filter.toLowerCase().trim())
-  );
+  const handleSort = () => {
+    if (filteredTrip) {
+      const sortedTrip = [...filteredTrip].sort(
+        (a, b) => new Date(a.start).getTime() - new Date(b.start).getTime()
+      );
+      setFilteredTrip(sortedTrip);
+    }
+  };
 
   return (
     <>
       <Container>
         <div>
           <Title />
-          <SearchTrip value={filter} setValue={setFilter} />
-          <CityList
-            handleModal={handleModal}
-            trip={filteredTrip}
-            handleCurrentTrip={handleCurrentTrip}
-          />
+          <div className={"app-wrapper"}>
+            <SearchTrip value={filter} setValue={setFilter} />
+            <button className="sort-btn" onClick={handleSort}>
+              Sort by date start
+            </button>
+          </div>
+          {filteredTrip && (
+            <CityList
+              handleModal={handleModal}
+              trip={filteredTrip}
+              handleCurrentTrip={handleCurrentTrip}
+            />
+          )}
           {forecast && <WeatherList forecast={forecast} />}
         </div>
 
